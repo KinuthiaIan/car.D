@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IAN'S CAR DEALERSHIP</title>
+    <style>
+        .p1 {
+            font-weight: 400;
+            font-size: 20px;
+            display: flex;
+            text-align: center;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            text-decoration: double;
+
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+        
+        ul li{
+            float: right;
+            padding: 0px 10px;
+            list-style: circle;
+        }
+        ul li a:hover{
+            color: red;
+        }
+
+        .car-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            padding: 20px;
+        }
+
+        .car-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 10px;
+            width: 300px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+
+        .car-card:hover {
+            transform: scale(1.05);
+        }
+
+        .logo{
+            font-size: 27px;
+            font-weight: bold;
+            color: yellowgreen;
+            text-align: left;
+            text-shadow: 20px;
+
+        }
+
+        .car-image {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .car-details {
+            padding: 10px;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>RETRO CARZ</h1>
+    </header>
+
+    <div class="logo">
+        <a href="">RETRO CARZ</a>
+    </div>
+    <ul>
+        <li><a href="">Home</a></li>
+        <li><a href="">Blog</a></li>
+        <li><a href="">Services</a></li>
+        <li><a href="">Contact</a></li>
+
+    </ul>
+
+    <p1>We Sell High End vehicles at an affordable price.</p1>
+
+    <div class="car-container" id="carContainer">
+        
+    </div>
+   
+
+    <div class="car-details-container hidden" id="carDetailsContainer">
+        <h2>Car Details</h2>
+        <div id="carDetails"></div>
+    </div>
+
+    <script>
+        // Sample car data
+        const cars = [
+            { id: 1, make: 'Toyota', model: 'Camry', year: 2022, price: '$25,000', image: '2022-Toyota-Camry-problems.jpg' },
+            { id: 2, make: 'Honda', model: 'Accord', year: 2023, price: '$28,000', image: '2023-Honda-Accord-Exterior-1024x630.jpg' },
+            { id: 3, make: 'Ford', model: 'Mustang', year: 2022, price: '$111,000', image: '2024-ford-mustang-gt-111-64e6608fce997.jpg' },
+            { id: 4, make: 'Lamboghini', model: 'Urus', year: 2021, price: '$350,000', image: 'Used-2022-Lamborghini-Urus-1685984443.jpg' },
+            { id: 5, make: 'LandRover', model: 'RangeRover', year: 2023, price: '$305,000', image: '2023-Range-Rover-Sport.jpg' },
+            { id: 6, make: 'Mercedese', model: 'glc', year: 2023, price: '$250,000', image: 'mercedes_glcsuv_300.jpg' },
+        ];
+
+        const carContainer = document.getElementById('carContainer');
+        const carDetailsContainer = document.getElementById('carDetailsContainer');
+        const carDetails = document.getElementById('carDetails');
+
+        // Function to display car details
+        function showCarDetails(car) {
+            carDetails.innerHTML = `
+                <p><strong>Make:</strong> ${car.make}</p>
+                <p><strong>Model:</strong> ${car.model}</p>
+                <p><strong>Year:</strong> ${car.year}</p>
+                <p><strong>Price:</strong> ${car.price}</p>
+            `;
+            carDetailsContainer.classList.remove('hidden');
+        }
+
+        // Function to create a car card
+        function createCarCard(car) {
+            const card = document.createElement('div');
+            card.classList.add('car-card');
+            card.addEventListener('click', () => showCarDetails(car));
+
+            const image = document.createElement('img');
+            image.src = car.image;
+            image.alt = `${car.make} ${car.model}`;
+            image.classList.add('car-image');
+
+            const details = document.createElement('div');
+            details.classList.add('car-details');
+            details.innerHTML = `
+                <p><strong>${car.make} ${car.model}</strong></p>
+                <p>${car.year}</p>
+                <p>${car.price}</p>
+            `;
+
+            card.appendChild(image);
+            card.appendChild(details);
+            carContainer.appendChild(card);
+        }
+
+        // Initialize the car cards
+        cars.forEach(createCarCard);
+    </script>
+</body>
+</html>
